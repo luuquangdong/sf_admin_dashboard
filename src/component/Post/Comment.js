@@ -15,7 +15,7 @@ const CenterContent = styled("div")({
   justifyContent: "center",
 });
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 10;
 
 const Container = styled("div")(({ theme }) => ({
   width: "100%",

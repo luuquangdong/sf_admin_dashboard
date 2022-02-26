@@ -105,7 +105,7 @@ const SignupOrganizationPage = () => {
     try {
       await confirmSignupOrg(signOrg.id, true);
 
-      setData(data.filter(it.id !== signOrg.id));
+      setData(data.filter((it) => it.id !== signOrg.id));
       notification("Thao tác thành công", "success");
     } catch (err) {
       console.log({ err });
@@ -117,7 +117,7 @@ const SignupOrganizationPage = () => {
     try {
       await confirmSignupOrg(signOrg.id, false);
 
-      setData(data.filter(it.id !== signOrg.id));
+      setData(data.filter((it) => it.id !== signOrg.id));
       notification("Thao tác thành công", "success");
     } catch (err) {
       console.log({ err });

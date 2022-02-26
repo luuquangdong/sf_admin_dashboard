@@ -42,8 +42,9 @@ const formSchema = yup.object().shape({
 
 const LoginPage = () => {
   const [err, setErr] = useState();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (values) => {
     formSchema
@@ -51,12 +52,15 @@ const LoginPage = () => {
       .then(async (data) => {
         setErr("");
         try {
+          setLoading(true);
           const loginInfo = await login(data.phoneNumber, data.password);
           console.log(loginInfo);
           setUser(loginInfo.user);
           saveLoginInfo(loginInfo.user, loginInfo.token);
+          setLoading(false);
           navigate("/");
         } catch (e) {
+          setLoading(false);
           console.log({ e });
           setErr("Tên đăng nhập hoặc mật khẩu không chính xác");
         }
@@ -105,7 +109,13 @@ const LoginPage = () => {
             <FormHelperText error sx={{ textAlign: "center" }}>
               {err}
             </FormHelperText>
-            <Button fullWidth type="submit" variant="contained" color="primary">
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={loading}
+            >
               Đăng nhập
             </Button>
           </form>
